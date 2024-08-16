@@ -1,4 +1,26 @@
-<p>not-found works!</p>
 <div class="text-center my-5">
-  <h1>404 Error, not found!</h1>
+  <h1 class="error-heading">404 Error, This page does not exist!</h1>
 </div>
+
+<style>
+  .error-heading {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ff4c4c; /* Bright red for the error message */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for better readability */
+    margin: 0;
+    padding: 20px;
+    border: 2px solid #ff4c4c; /* Matching border for consistency */
+    border-radius: 8px; /* Rounded corners for a softer look */
+    background: #fff; /* White background for contrast */
+    display: inline-block; /* Center the block */
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .my-5 {
+    margin: 3rem 0; /* Top and bottom margin */
+  }
+</style>

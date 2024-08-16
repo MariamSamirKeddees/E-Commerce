@@ -1,22 +1,22 @@
-<div class="card h-100">
-    @if (product.stock > 0) {
-    <label class="badge bg-success pos">In Stock</label>
-    } @else {
+<div class="card h-100 d-flex flex-column">
+  @if (product.stock > 0) {
+    <label class="badge bgc-g pos">In Stock</label>
+  } @else {
     <label class="badge bg-danger pos">Out of Stock</label>
-    }
-  
-    <a [routerLink]="['/products', product.id]">
-      <img
-        src="{{ product.images[0] }}"
-        class="card-img-top"
-        alt="{{ product.title }}"
-      />
-    </a>
-  
-    <div class="card-body">
-      <h5 class="card-title">{{ product.title }}</h5>
-  
-      @if (product.discountPercentage) {
+  }
+
+  <a [routerLink]="['/products', product.id]">
+    <img
+      src="{{ product.images[0] }}"
+      class="card-img-top"
+      alt="{{ product.title }}"
+    />
+  </a>
+
+  <div class="card-body d-flex flex-column flex-grow-1">
+    <h5 class="card-title">{{ product.title }}</h5>
+
+    @if (product.discountPercentage) {
       <strong class="card-title text-danger me-2">
         $
         {{
@@ -26,18 +26,20 @@
         }}
       </strong>
       <del>$ {{ product.price }}</del>
-      } @else {
+    } @else {
       <strong class="card-title">$ {{ product.price }}</strong>
-      }
-  
-      <p>
-        <app-star-rating [rating]="product.rating"></app-star-rating>
-      </p>
-      <p class="card-text desc">{{ product.description }}</p>
-  
-      <button class="btn btn-primary" (click)="handleRedirect(product.id)">
-        View
-      </button>
-    </div>
+    }
+
+    <p>
+      <app-star-rating [rating]="product.rating"></app-star-rating>
+    </p>
+    <p class="card-text desc flex-grow-1">{{ product.description }}</p>
+
+    <button
+      class="btn btn-bgc mt-auto"
+      (click)="handleRedirect(product.id)"
+    >
+      View
+    </button>
   </div>
-  
+</div>

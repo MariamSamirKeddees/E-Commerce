@@ -1,90 +1,90 @@
-<div class="row row-cols-1 row-cols-md-2">
-    <div class="col">
+<div class="row row-cols-1 row-cols-md-2 product-details-container">
+  <div class="col">
+    <img
+      src="{{ productDetails?.images[0] }}"
+      class="product-main-img mb-3"
+      id="current-img"
+      alt="{{ productDetails?.title }}"
+    />
+    @if (productDetails?.images.length > 1) {
+    <div class="image-thumbnails">
+      @for (img of productDetails?.images; track $index) {
       <img
-        src="{{ productDetails?.images[0] }}"
-        class="card-img-top mb-2"
-        id="current-img"
+        class="thumbnail-img"
+        src="{{ img }}"
         alt="{{ productDetails?.title }}"
+        (click)="changeImg(productDetails?.images, $index)"
       />
-      @if (productDetails?.images.length > 1) {
-      <div class="d-flex justify-content-center">
-        @for (img of productDetails?.images; track $index) {
-        <img
-          class="card-img-top otherImg"
-          src="{{ img }}"
-          alt="{{ productDetails?.title }}"
-          (click)="changeImg(productDetails?.images, $index)"
-        />
-        }
-      </div>
       }
     </div>
-  
-    <div class="col mt-5">
-      <h1 class="card-title mb-3">{{ productDetails?.title }}</h1>
-      <p class="card-text">{{ productDetails?.description }}</p>
-      <p>
-        <app-star-rating [rating]="productDetails?.rating"></app-star-rating>
-      </p>
-      <p>Total Reviews: ({{ productDetails?.reviews.length }})</p>
-      <hr />
-  
-      <h3>
-        @if (productDetails?.discountPercentage) {
-        <strong class="card-title text-danger me-2">
-          $
-          {{
-            (
-              [productDetails?.price, productDetails?.discountPercentage]
-              | calculateDiscount
-            ).toFixed(2)
-          }}
-        </strong>
-        <del>$ {{ productDetails?.price }}</del>
-        } @else {
-        <strong class="card-title">$ {{ productDetails?.price }}</strong>
-        }
-      </h3>
-  
-      <p>
-        @if (productDetails?.stock > 0) {
-        <label class="badge bg-success">In Stock</label>
-        } @else {
-        <label class="badge bg-danger">Out of Stock</label>
-        }
-      </p>
-  
-      <h3>More information</h3>
-      <div class="row row-cols-2 g-5">
-        <p class="col fs-3">
-          <button
-            class="btn btn-outline-success fs-1"
-            (click)="counterDecrement()"
-          >
-            -
-          </button>
-          {{ counter }}
-          <button
-            class="btn btn-outline-success fs-1"
-            (click)="counterIncrement()"
-          >
-            +
-          </button>
-        </p>
-  
-        <div class="col">
-          <p>
-            Only
-            <span class="text-danger">{{ productDetails?.stock }} items</span>
-            left!
-          </p>
-          <p>Don't miss it</p>
-        </div>
+    }
+  </div>
+
+  <div class="col mt-5 product-info">
+    <h1 class="product-title">{{ productDetails?.title }}</h1>
+    <p class="product-description">{{ productDetails?.description }}</p>
+    <p>
+      <app-star-rating [rating]="productDetails?.rating"></app-star-rating>
+    </p>
+    <p class="total-reviews">Total Reviews: {{ productDetails?.reviews.length }}</p>
+    <hr />
+
+    <h3 class="product-price">
+      @if (productDetails?.discountPercentage) {
+      <strong class="discounted-price">
+        $ {{
+          (
+            [productDetails?.price, productDetails?.discountPercentage]
+            | calculateDiscount
+          ).toFixed(2)
+        }}
+      </strong>
+      <del class="original-price">$ {{ productDetails?.price }}</del>
+      } @else {
+      <strong>$ {{ productDetails?.price }}</strong>
+      }
+    </h3>
+
+    <p>
+      @if (productDetails?.stock > 0) {
+      <label class="stock-badge in-stock">In Stock</label>
+      } @else {
+      <label class="stock-badge out-of-stock">Out of Stock</label>
+      }
+    </p>
+
+    <h3 class="more-info-title">More Information</h3>
+    <div class="row row-cols-2 quantity-info">
+      <div class="col quantity-controls">
+        <button
+          class="btn quantity-btn"
+          (click)="counterDecrement()"
+        >
+          -
+        </button>
+        <span class="counter-value">{{ counter }}</span>
+        <button
+          class="btn quantity-btn"
+          (click)="counterIncrement()"
+        >
+          +
+        </button>
       </div>
-  
+
+      <div class="col stock-info">
+        <p>
+          Only
+          <span class="text-danger">{{ productDetails?.stock }} items</span>
+          left!
+        </p>
+        <p>Don't miss it</p>
+      </div>
+    </div>
+
+    <div class="actions mt-4">
       <button
         type="button"
-        class="btn btn-success me-3"
+        class="btn btn-primary me-3 buy-now-btn"
         [disabled]="productDetails?.stock === 0"
         (click)="buyNow(productDetails, counter)"
       >
@@ -92,7 +92,7 @@
       </button>
       <button
         type="button"
-        class="btn btn-outline-success"
+        class="btn btn-outline-primary add-to-cart-btn"
         [disabled]="productDetails?.stock === 0"
         (click)="addToCart(productDetails, counter)"
       >
@@ -100,4 +100,4 @@
       </button>
     </div>
   </div>
-  
+</div>
